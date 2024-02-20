@@ -29,17 +29,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => const HomePageWidget(),
+      errorBuilder: (context, state) => const ZithubWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const HomePageWidget(),
+          builder: (context, _) => const ZithubWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
+          name: 'Zithub',
+          path: '/zithub',
+          builder: (context, params) => const ZithubWidget(),
+        ),
+        FFRoute(
+          name: 'SignIn',
+          path: '/signIn',
+          builder: (context, params) => const SignInWidget(),
+        ),
+        FFRoute(
+          name: 'SignUp',
+          path: '/signUp',
+          builder: (context, params) => const SignUpWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -111,6 +121,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -124,11 +135,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(
-      param,
-      type,
-      isList,
-    );
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 
