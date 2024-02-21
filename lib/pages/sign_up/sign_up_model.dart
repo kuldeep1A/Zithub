@@ -11,22 +11,22 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
   TextEditingController? emailAddressController;
   String? Function(BuildContext, String?)? emailAddressControllerValidator;
   // State field(s) for password widget.
-  FocusNode? passwordFocusNode1;
-  TextEditingController? passwordController1;
-  late bool passwordVisibility1;
-  String? Function(BuildContext, String?)? passwordController1Validator;
-  // State field(s) for password widget.
-  FocusNode? passwordFocusNode2;
-  TextEditingController? passwordController2;
-  late bool passwordVisibility2;
-  String? Function(BuildContext, String?)? passwordController2Validator;
+  FocusNode? passwordFocusNode;
+  TextEditingController? passwordController;
+  late bool passwordVisibility;
+  String? Function(BuildContext, String?)? passwordControllerValidator;
+  // State field(s) for confirmPassword widget.
+  FocusNode? confirmPasswordFocusNode;
+  TextEditingController? confirmPasswordController;
+  late bool confirmPasswordVisibility;
+  String? Function(BuildContext, String?)? confirmPasswordControllerValidator;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
-    passwordVisibility1 = false;
-    passwordVisibility2 = false;
+    passwordVisibility = false;
+    confirmPasswordVisibility = false;
   }
 
   @override
@@ -35,11 +35,11 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
     emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();
 
-    passwordFocusNode1?.dispose();
-    passwordController1?.dispose();
+    passwordFocusNode?.dispose();
+    passwordController?.dispose();
 
-    passwordFocusNode2?.dispose();
-    passwordController2?.dispose();
+    confirmPasswordFocusNode?.dispose();
+    confirmPasswordController?.dispose();
   }
 
   /// Action blocks are added here.

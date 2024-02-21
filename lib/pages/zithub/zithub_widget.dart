@@ -1,9 +1,11 @@
-import '/components/side_action_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/component/app_bar/app_bar_widget.dart';
+import '/component/side_action/side_action_widget.dart';
+import '/component/watermark/watermark_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'zithub_model.dart';
 export 'zithub_model.dart';
 
@@ -45,6 +47,8 @@ class _ZithubWidgetState extends State<ZithubWidget> {
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -52,113 +56,80 @@ class _ZithubWidgetState extends State<ZithubWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF173C4C),
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Zithub',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
-                      color: Colors.white,
-                      fontSize: 22.0,
-                    ),
-              ),
-              Container(
-                width: 150.0,
-                decoration: const BoxDecoration(),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FlutterFlowIconButton(
-                      borderRadius: 20.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.wifi,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
-                    ),
-                    FlutterFlowIconButton(
-                      borderRadius: 20.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.person,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('profile pressed ...');
-                      },
-                    ),
-                    FlutterFlowIconButton(
-                      borderRadius: 20.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.logout,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('logout pressed ...');
-                      },
-                    ),
-                  ],
+        appBar: responsiveVisibility(
+          context: context,
+          phone: false,
+          tablet: false,
+        )
+            ? AppBar(
+                backgroundColor: const Color(0xFF173C4C),
+                automaticallyImplyLeading: false,
+                title: wrapWithModel(
+                  model: _model.appBarModel,
+                  updateCallback: () => setState(() {}),
+                  child: const AppBarWidget(),
                 ),
-              ),
-            ],
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
+                actions: const [],
+                centerTitle: false,
+                elevation: 2.0,
+              )
+            : null,
         body: SafeArea(
           top: true,
           child: Visibility(
             visible: responsiveVisibility(
               context: context,
-              phone: false,
               tablet: false,
+              tabletLandscape: false,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: const BoxDecoration(),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        wrapWithModel(
-                          model: _model.sideActionModel,
-                          updateCallback: () => setState(() {}),
-                          child: const SideActionWidget(),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.75,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
+            child: Container(
+              decoration: const BoxDecoration(),
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: const BoxDecoration(),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              wrapWithModel(
+                                model: _model.sideActionModel,
+                                updateCallback: () => setState(() {}),
+                                child: const SideActionWidget(),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.75,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: const AlignmentDirectional(0.98, 0.98),
+                    child: wrapWithModel(
+                      model: _model.watermarkModel,
+                      updateCallback: () => setState(() {}),
+                      child: const WatermarkWidget(),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
