@@ -79,29 +79,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/',
           builder: (context, _) =>
               appStateNotifier.loggedIn ? const ZithubWidget() : const SignInWidget(),
+          routes: [
+            FFRoute(
+              name: 'Zithub',
+              path: 'zithub',
+              requireAuth: true,
+              builder: (context, params) => const ZithubWidget(),
+            ),
+            FFRoute(
+              name: 'SignIn',
+              path: 'signIn',
+              builder: (context, params) => const SignInWidget(),
+            ),
+            FFRoute(
+              name: 'SignUp',
+              path: 'signUp',
+              builder: (context, params) => const SignUpWidget(),
+            ),
+            FFRoute(
+              name: 'profile',
+              path: 'profile',
+              requireAuth: true,
+              builder: (context, params) => const ProfileWidget(),
+            ),
+            FFRoute(
+              name: 'ForgotPassword',
+              path: 'forgotPassword',
+              builder: (context, params) => const ForgotPasswordWidget(),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
-        FFRoute(
-          name: 'Zithub',
-          path: '/zithub',
-          requireAuth: true,
-          builder: (context, params) => const ZithubWidget(),
-        ),
-        FFRoute(
-          name: 'SignIn',
-          path: '/signIn',
-          builder: (context, params) => const SignInWidget(),
-        ),
-        FFRoute(
-          name: 'SignUp',
-          path: '/signUp',
-          builder: (context, params) => const SignUpWidget(),
-        ),
-        FFRoute(
-          name: 'profile',
-          path: '/profile',
-          requireAuth: true,
-          builder: (context, params) => const ProfileWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -272,6 +279,7 @@ class FFRoute {
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(

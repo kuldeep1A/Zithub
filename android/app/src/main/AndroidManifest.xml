@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="Zithub-WriteArea"
+        android:label="Zithub"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">

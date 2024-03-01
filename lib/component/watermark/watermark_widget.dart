@@ -47,7 +47,7 @@ class _WatermarkWidgetState extends State<WatermarkWidget> {
           'By KULDEEP',
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Readex Pro',
-                color: FlutterFlowTheme.of(context).accent1,
+                color: FlutterFlowTheme.of(context).primaryText,
               ),
         ),
       ],
