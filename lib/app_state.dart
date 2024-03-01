@@ -25,4 +25,10 @@ class FFAppState extends ChangeNotifier {
   set route(String value) {
     _route = value;
   }
+
+  String _email = '';
+  String get email => _email;
+  set email(String value) {
+    _email = value;
+  }
 }

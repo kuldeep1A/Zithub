@@ -30,7 +30,12 @@ dependencies:
   cloud_firestore: 4.13.1
   cloud_firestore_platform_interface: 6.0.5
   cloud_firestore_web: 3.8.5
+<<<<<<< HEAD
   collection: ^1.18.0
+=======
+  collection: 1.17.2
+  easy_debounce: 2.0.1
+>>>>>>> 05c31324305b6fd8228c67dd6d955bef673308aa
   firebase_auth: 4.15.2
   firebase_auth_platform_interface: 7.0.8
   firebase_auth_web: 5.8.11
@@ -69,6 +74,7 @@ dependencies:
   sign_in_with_apple: 4.3.0
   sign_in_with_apple_platform_interface: 1.0.0
   sign_in_with_apple_web: 1.0.1
+  simple_gradient_text: 1.2.3
   sqflite: 2.2.6
   stream_transform: 2.1.0
   timeago: 3.2.2

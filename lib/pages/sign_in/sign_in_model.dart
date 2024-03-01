@@ -1,3 +1,4 @@
+import '/component/watermark/watermark_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'sign_in_widget.dart' show SignInWidget;
 import 'package:flutter/material.dart';
@@ -15,12 +16,15 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
   TextEditingController? passwordController;
   late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordControllerValidator;
+  // Model for watermark component.
+  late WatermarkModel watermarkModel;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
     passwordVisibility = false;
+    watermarkModel = createModel(context, () => WatermarkModel());
   }
 
   @override
@@ -31,6 +35,8 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
 
     passwordFocusNode?.dispose();
     passwordController?.dispose();
+
+    watermarkModel.dispose();
   }
 
   /// Action blocks are added here.
